@@ -1,16 +1,8 @@
-const mongoose = require("mongoose");
-
-const dbName = "tee_time";
-
-mongoose
-  .connect(`mongodb://localhost/${dbName}`, {
+const mongoose = require('mongoose');
+const dbname = "tee-time";
+mongoose.connect(`mongodb://localhost/${dbname}`, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log(`You are connected to the ${dbName} database.`);
-  })
-  .catch((err) => {
-    console.log(`Error! Could not connect to the ${dbName} database.`);
-    console.log(err);
-  });
+    useUnifiedTopology: true
+})
+    .then(()=>console.log(`Connected to ${dbname} database`))
+    .catch((err)=>console.log(err));
