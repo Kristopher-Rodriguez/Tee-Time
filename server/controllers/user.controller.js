@@ -1,10 +1,11 @@
-require('dotenv').config();
 const bcrypt = require("bcrypt")
-const { secret } = require('../config/jwt.config');
 const User = require("../models/user.model");
+const jwt = require("jsonwebtoken");
+
+
 
 module.exports = {
-    registerUser: (req, res) => { 
+    registerUser: (req, res) => {
         User.create(req.body)
             .then(user => {
                 const userToken = jwt.sign({
@@ -12,7 +13,7 @@ module.exports = {
                 }, process.env.Token_Key);
                 
                 res
-                    .cookie("usertoken", userToken, secret, {
+                    .cookie("usertoken", userToken, process.env.Token_Key, {
                         httpOnly: true
                     })
                     .json({ msg: "Success", user: user});
@@ -37,18 +38,36 @@ module.exports = {
         }, process.env.Token_Key);
 
         res
-            cookie("usertoken", userToken, secret, {
+            .cookie("usertoken", userToken, process.env.Token_Key, {
                 httpOnly: true
             })
             .json({ msg: "Success"})
     },
 
+    logout: (req, res) => {
+        res.clearCookie("usertoken");
+        res.json({msg: "Successful Logout."});
+        res.sendStatus(200);
+    },
 
     findUsers: (req,res) => {
         User.find({})
             .then((allUsers) => res.json(allUsers))
             .catch((err) => {
                 console.log(err);
+            });
+    },
+
+    findLoggedInUser: (req, res) => {
+        // const decodedJWT = jwt.decode(req.cookies.usertoken,{complete: true});
+
+        User.findOne({id: req.jwtpayload.id})
+            .then((oneUser) => {
+                console.log(oneUser);
+                res.json(oneUser)
+            })
+            .catch((err) => {
+                console.log(err)
             });
     }
 }
