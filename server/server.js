@@ -13,5 +13,6 @@ app.use(cors({
 
 require("./config/mongoose.config");
 require("./routes/user.routes")(app);
+require("./routes/round.routes")(app);
 
-app.listen(port, () => console.log("Listening on port",port));
+app.listen(port, () => console.log("Listening on port", port));

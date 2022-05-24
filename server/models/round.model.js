@@ -45,4 +45,4 @@ const RoundSchema = mongoose.Schema(
 
 const Round = mongoose.model("Round", RoundSchema);
 
-module.exports = Round
+module.exports = Round;
