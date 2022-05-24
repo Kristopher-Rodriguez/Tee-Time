@@ -1,6 +1,26 @@
-import React from "react";
+import React, {useEffect, useState}from "react";
+import axios from "axios";
 
-const Dashboard = () => {
+
+
+const Dashboard = (props) => {
+
+  //get the states fom App.js
+const {allRounds, setAllRounds} = props;
+
+
+  //Request all the data for the rounds
+useEffect(() =>{
+  axios.get('http://localhost:8000/api/rounds/all')
+      .then((response) =>{
+        console.log(response.data);
+        setAllRounds(response.data)
+    })
+      .catch((error) => {
+        console.log("Error getting allRounds data from DB");
+      })
+}, [setAllRounds])
+
   return (
     <div className="bg-light container">
       <div className="">
