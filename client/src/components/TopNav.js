@@ -34,7 +34,7 @@ const TopNav = () => {
           <div className="collapse navbar-collapse" id="navmenu">
             <ul className="navbar-nav ms-auto">
               <li className="mx-2 nav-item">
-                <Link className="text-decoration-none nav-link" to="/">
+                <Link className="text-decoration-none nav-link" to="/dashboard">
                   Dashboard
                 </Link>
               </li>
@@ -44,7 +44,7 @@ const TopNav = () => {
                 </Link>
               </li>
               <li className="mx-2 nav-item">
-                <Link className="text-decoration-none nav-link" to="/login">
+                <Link className="text-decoration-none nav-link" to="/">
                   Log Out
                 </Link>
               </li>
