@@ -24,7 +24,7 @@ const Login = () => {
       .then((res) => {
         console.log(res, "res");
         console.log(res.data, "is res data!");
-        navigate("/dashboard/:userName");
+        navigate("/dashboard");
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -36,7 +36,7 @@ const Login = () => {
     <>
       <div className="card my-4 mx-auto" style={{ width: "322px" }}>
         <h1 className="card-header bg-success text-center text-white">Login</h1>
-        <p className="text-danger">{errorMessage ? errorMessage : ""}</p>
+        <p className="fw-bold text-danger my-1 text-center">{errorMessage ? errorMessage : ""}</p>
         <form onSubmit={login}>
           <div className="d-flex justify-content-center align-items-center p-2 m-1">
             <label className="fw-bold me-2">Email:</label>

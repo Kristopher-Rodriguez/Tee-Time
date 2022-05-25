@@ -53,11 +53,11 @@ const Register = () => {
           <p className="mt-2 text-center text-success">{confirmReg}</p>
         ) : null}
         <form onSubmit={register}>
-          <div className="d-flex justify-content-around align-items-center p-2 m-1">
+          <div className="d-flex flex-column justify-content-around align-items-center p-2 m-1">
             <label htmlFor="userName" className="fw-bold me-2">
-              User Name:
+              Username:
             </label>
-            {errors.userName ? <span>{errors.userName.message}</span> : null}
+            {errors.userName ? <span className="fw-bold text-danger my-1">{errors.userName.message}</span> : null}
             <input
               type="text"
               name="userName"
@@ -65,11 +65,11 @@ const Register = () => {
               onChange={(e) => handleChange(e)}
             />
           </div>
-          <div className="d-flex justify-content-around align-items-center p-2 m-1">
+          <div className="d-flex flex-column justify-content-around align-items-center p-2 m-1">
             <label htmlFor="email" className="fw-bold me-2">
               Email:
             </label>
-            {errors.email ? <span>{errors.email.message}</span> : null}
+            {errors.email ? <span className="fw-bold text-danger my-1">{errors.email.message}</span> : null}
             <input
               type="email"
               name="email"
@@ -77,11 +77,11 @@ const Register = () => {
               onChange={handleChange}
             />
           </div>
-          <div className="d-flex justify-content-around align-items-center p-2 m-1">
+          <div className="d-flex flex-column justify-content-around align-items-center p-2 m-1">
             <label htmlFor="password" className="fw-bold me-2">
               Password:
             </label>
-            {errors.password ? <span>{errors.password.message}</span> : null}
+            {errors.password ? <span className="fw-bold text-danger my-1">{errors.password.message}</span> : null}
             <input
               type="password"
               name="password"
@@ -89,12 +89,12 @@ const Register = () => {
               onChange={handleChange}
             />
           </div>
-          <div className="d-flex justify-content-center align-items-center p-2 m-1">
+          <div className="d-flex flex-column justify-content-center align-items-center p-2 m-1">
             <label htmlFor="confirmPassword" className="fw-bold me-2">
               Confirm Password:
             </label>
             {errors.confirmPassword ? (
-              <span>{errors.confirmPassword.message}</span>
+              <span className="fw-bold text-danger my-1">{errors.confirmPassword.message}</span>
             ) : null}
             <input
               type="password"
