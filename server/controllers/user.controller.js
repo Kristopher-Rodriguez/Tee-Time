@@ -45,7 +45,7 @@ module.exports = {
     },
 
     logout: (req, res) => {
-        res.clearCookie("usertoken");
+        res.clearCookie("usertoken", "userToken");
         res.json({msg: "Successful Logout."});
         res.sendStatus(200);
     },
@@ -61,7 +61,7 @@ module.exports = {
     findLoggedInUser: (req, res) => {
         // const decodedJWT = jwt.decode(req.cookies.usertoken,{complete: true});
 
-        User.findOne({id: req.jwtpayload.id})
+        User.findOne({_id: req.jwtpayload.id})
             .then((oneUser) => {
                 console.log(oneUser);
                 res.json(oneUser)
