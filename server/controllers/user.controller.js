@@ -69,13 +69,13 @@ module.exports = {
   findLoggedInUser: (req, res) => {
     // const decodedJWT = jwt.decode(req.cookies.usertoken,{complete: true});
 
-    User.findOne({ id: req.jwtpayload.id })
-      .then((oneUser) => {
-        console.log(oneUser);
-        res.json(oneUser);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
-};
+        User.findOne({_id: req.jwtpayload.id})
+            .then((oneUser) => {
+                console.log(oneUser);
+                res.json(oneUser)
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+    }
+}
