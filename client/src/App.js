@@ -11,7 +11,7 @@ import LogReg from "./views/LogReg";
 
 function App() {
   //states
-  const [allRounds, setAllRounds] = useState({});
+  const [allRounds, setAllRounds] = useState([]);
 
   return (
     <div className="bg-light App">
@@ -21,9 +21,11 @@ function App() {
           <Route path="/" element={<LogReg />} />
           <Route
             path="/dashboard"
-            element={<Dashboard />}
-            allRounds={allRounds}
-            setAllRounds={setAllRounds}
+            element={<Dashboard
+                allRounds={allRounds}
+                setAllRounds={setAllRounds}
+            />}
+
           />
           <Route path="/addround" element={<AddRound />} />
         </Routes>

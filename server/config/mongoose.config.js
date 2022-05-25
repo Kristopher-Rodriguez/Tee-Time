@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const dbname = "tee-time";
-mongoose.connect(`mongodb://localhost/${dbname}`, {
+mongoose.connect(`mongodb://127.0.0.1/${dbname}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
