@@ -33,21 +33,8 @@ module.exports = {
   },
 
   getRoundsByUser: (req, res) => {
-    if (req.jwtpayload.userName !== req.params.userName) {
+    if (req.jwtpayload.id !== req.params.id) {
       console.log("not user");
-      User.findOne({ userName: req.params.userName })
-        .then((userNotLoggedIn) => {
-          Round.find({ user_id: userNotLoggedIn._id })
-            .populate("user_id", "userName")
-            .then((allRoundsFromUser) => {
-              console.log(allRoundsFromUser);
-              res.json(allRoundsFromUser);
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-          res.status(400).json(err);
-        });
     } else {
       console.log("current user");
       Round.find({ user_id: req.jwtpayload.id })
