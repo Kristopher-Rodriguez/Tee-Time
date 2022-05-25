@@ -1,5 +1,9 @@
-import React, {useEffect, useState}from "react";
+import React from 'react';
+import {useEffect, useState}from "react";
+import {Link} from "react-router-dom";
 import axios from "axios";
+
+
 
 
 
@@ -7,22 +11,56 @@ const Dashboard = (props) => {
 
   //get the states fom App.js
 const {allRounds, setAllRounds} = props;
+const [userRounds, setUserRounds] = useState([]);
+const [userName, setUserName] = useState("")
+const [deletedId, setDeletedId] = useState("");
 
 
-  //Request all the data for the rounds
-useEffect(() =>{
-  axios.get('http://localhost:8000/api/rounds/all')
-      .then((response) =>{
-        console.log(response.data);
-        setAllRounds(response.data)
-    })
-      .catch((error) => {
-        console.log("Error getting allRounds data from DB");
-      })
-}, [setAllRounds])
+    //Get user
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/users/one`, { withCredentials: true })
+            .then((response)=>{
+                console.log(response.data);
+                setUserName(response.data.userName);
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+    }, [deletedId])
+    // console.log(userName);
+
+    //Get user rounds
+        useEffect(() => {
+            if (userName) {
+                // console.log("THERE IS A USERNAME", userName)
+            axios.get(`http://localhost:8000/api/rounds/${userName}`, { withCredentials: true })
+                .then((response)=>{
+                    console.log(response.data)
+                    setUserRounds(response.data)
+                })
+                .catch((error)=>{
+                    console.log(error);
+                })
+            }
+        }, [userName, deletedId])
+        // console.log("USER ROUNDS", userRounds)
+
+  //Delete round
+  const deleteRound = (idToDelete)=> {
+      console.log(idToDelete);
+      axios.delete(`http://localhost:8000/api/rounds/${idToDelete}`, { withCredentials: true })
+          .then(response => {
+              console.log(response.data)
+              setDeletedId(idToDelete);
+          })
+          .catch((error)=>{
+              console.log(error);
+          })
+  }
 
   return (
     <div className="bg-light container">
+
       <div className="">
         <table className="table table-striped table-hover">
           <thead className="table-success">
@@ -33,34 +71,26 @@ useEffect(() =>{
               <th>Actions</th>
             </tr>
           </thead>
+
           <tbody>
-            <tr>
-              <td>5/21/2022</td>
-              <td>The nice one</td>
-              <td>77</td>
-              <div className="d-flex">
-                <td>Edit |</td>
-                <td>Delete</td>
-              </div>
-            </tr>
-            <tr>
-              <td>5/21/2022</td>
-              <td>The nice one</td>
-              <td>77</td>
-              <div className="d-flex">
-                <td>Edit |</td>
-                <td>Delete</td>
-              </div>
-            </tr>
-            <tr>
-              <td>5/21/2022</td>
-              <td>The nice one</td>
-              <td>77</td>
-              <div className="d-flex">
-                <td>Edit |</td>
-                <td>Delete</td>
-              </div>
-            </tr>
+          {userRounds.map((round, index)=>{
+            return (
+                <tr key={index}>
+                  <td>{round.date}</td>
+                  <td>{round.course}</td>
+                  <td>{round.score}</td>
+                  <td className="d-flex">
+                        <button className="btn">Edit</button>
+                        <button className="btn"
+                            onClick={event => {deleteRound(round._id)}}
+                        >Delete
+                        </button>
+                  </td>
+                </tr>
+            )
+          })}
+
+
           </tbody>
         </table>
       </div>
@@ -72,6 +102,8 @@ useEffect(() =>{
           </p>
         </div>
         <div className="col"></div>
+      </div>
+      <div>
       </div>
     </div>
   );
