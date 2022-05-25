@@ -27,7 +27,7 @@ module.exports = {
     const user = await User.findOne({ email: req.body.email });
 
     if (user === null) {
-      return res.status(400).json({message: "Invalid Login Attempt!"});
+      return res.status(400).json({ message: "Invalid Login Attempt!" });
     }
 
     const correctPassword = await bcrypt.compare(
@@ -35,7 +35,7 @@ module.exports = {
       user.password
     );
     if (!correctPassword) {
-      return res.sendStatus(400);
+      return res.status(400).json({ message: "Invalid Login Attempt!" });
     }
 
     const userToken = jwt.sign(
@@ -69,13 +69,13 @@ module.exports = {
   findLoggedInUser: (req, res) => {
     // const decodedJWT = jwt.decode(req.cookies.usertoken,{complete: true});
 
-        User.findOne({_id: req.jwtpayload.id})
-            .then((oneUser) => {
-                console.log(oneUser);
-                res.json(oneUser)
-            })
-            .catch((err) => {
-                console.log(err)
-            });
-    }
-}
+    User.findOne({ _id: req.jwtpayload.id })
+      .then((oneUser) => {
+        console.log(oneUser);
+        res.json(oneUser);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+};
