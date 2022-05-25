@@ -45,7 +45,7 @@ module.exports = {
     },
 
     logout: (req, res) => {
-        res.clearCookie("usertoken", "userToken");
+        res.clearCookie("usertoken");
         res.json({msg: "Successful Logout."});
         res.sendStatus(200);
     },
