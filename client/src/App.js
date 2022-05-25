@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+
+// import components
+import TopNav from "./components/TopNav";
+import Dashboard from "./components/Dashboard";
+import BottomBar from "./components/BottomBar";
+import AddRound from "./components/AddRound";
+import LogReg from "./views/LogReg";
 
 function App() {
+  //states
+  const [allRounds, setAllRounds] = useState({});
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-light App">
+      <BrowserRouter>
+        <TopNav />
+        <Routes>
+          <Route path="/" element={<LogReg />} />
+          <Route
+            path="/dashboard"
+            element={<Dashboard />}
+            allRounds={allRounds}
+            setAllRounds={setAllRounds}
+          />
+          <Route path="/addround" element={<AddRound />} />
+        </Routes>
+        <BottomBar />
+      </BrowserRouter>
     </div>
   );
 }
