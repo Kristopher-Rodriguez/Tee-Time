@@ -38,7 +38,7 @@ const Login = () => {
         <h1 className="card-header bg-success text-center text-white">Login</h1>
         <p className="fw-bold text-danger my-1 text-center">{errorMessage ? errorMessage : ""}</p>
         <form onSubmit={login}>
-          <div className="d-flex justify-content-center align-items-center p-2 m-1">
+          <div className="d-flex flex-column justify-content-center align-items-center p-2 m-1">
             <label className="fw-bold me-2">Email:</label>
             <input
               type="text"
@@ -47,7 +47,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="d-flex justify-content-center align-items-center p-2 m-1">
+          <div className="d-flex flex-column justify-content-center align-items-center p-2 m-1">
             <label className="fw-bold me-2">Password:</label>
             <input
               type="password"
