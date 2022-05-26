@@ -1,18 +1,41 @@
-import { Link } from "react-router-dom";
-import { useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
 import { Collapse } from "bootstrap";
 import logo from "../img/logo.png";
-import banner from "../img/banner_main.jpg"
+import banner from "../img/banner_main.jpg";
+import axios from "axios";
 
 const TopNav = () => {
+  const [userId, setUserId] = useState("");
   const [toggle, setToggle] = useState(false);
   const collapseRef = useRef();
+  const navigate = useNavigate();
 
   const navBarCollapse = () => {
     let myCollapse = collapseRef.current;
     let bsCollapse = new Collapse(myCollapse, { toggle: false });
     toggle ? bsCollapse.show() : bsCollapse.hide();
     setToggle((toggle) => !toggle);
+  };
+
+  useEffect(() => {
+    axios.get(`http://localhost:8000/api/users/one`, { withCredentials: true })
+        .then((response)=>{
+            console.log(response.data);
+            setUserId(response.data._id);
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+}, [])
+
+  const logout = (e) => {
+    axios
+      .post("http://localhost:8000/api/users/logout", {}, { withCredentials: true })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -44,7 +67,11 @@ const TopNav = () => {
                 </Link>
               </li>
               <li className="mx-2 nav-item">
-                <Link className="text-decoration-none nav-link" to="/">
+                <Link
+                  onClick={logout}
+                  className="text-decoration-none nav-link"
+                  to="/"
+                >
                   Log Out
                 </Link>
               </li>

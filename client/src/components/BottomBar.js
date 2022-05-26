@@ -5,7 +5,7 @@ const BottomBar = () => {
         <div>
             
             <div className="bg-dark text-center align-middle pt-4 pb-4 mt-4">
-                <p className="text-white">Coding Dojo 2022</p>
+                <p className="text-white">Coding Dojo Group Project 2022</p>
             </div>
         </div>
     )

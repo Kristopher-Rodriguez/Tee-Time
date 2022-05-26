@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import date from 'date-and-time';
+
 
 const EditRound = () => {
   const { id } = useParams();
@@ -32,7 +34,7 @@ const EditRound = () => {
         const { data } = response;
         setDate(data.date);
         setCourse(data.course);
-        setCourseRating(data.CourseRating);
+        setCourseRating(data.courseRating);
         setSlopeRating(data.slopeRating);
         setHolesPlayed(data.holesPlayed);
         setPar(data.par);
@@ -59,7 +61,7 @@ const EditRound = () => {
       )
       .then((res) => {
         console.log("success", res.data);
-        navigate(`/user/dashboard/${user.userName}`);
+        navigate(`/dashboard`);
       })
       .catch((err) => {
         console.log(err.response);
