@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddRound = () => {
+const EditRound = () => {
+  const { id } = useParams();
+
   const [date, setDate] = useState("");
   const [course, setCourse] = useState("");
   const [courseRating, setCourseRating] = useState("");
@@ -24,13 +26,26 @@ const AddRound = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+    axios
+      .get(`http://localhost:8000/api/rounds/${id}`, { withCredentials: true })
+      .then((response) => {
+        const { data } = response;
+        setDate(data.date);
+        setCourse(data.course);
+        setCourseRating(data.CourseRating);
+        setSlopeRating(data.slopeRating);
+        setHolesPlayed(data.holesPlayed);
+        setPar(data.par);
+        setScore(data.score);
+      })
+      .catch((error) => console.log(error));
+  }, [id]);
 
-  const submitRoundHandler = (e) => {
+  const updateRoundHandler = (e) => {
     e.preventDefault();
     axios
-      .post(
-        "http://localhost:8000/api/rounds/new",
+      .put(
+        `http://localhost:8000/api/rounds/${id}`,
         {
           date,
           course,
@@ -44,7 +59,7 @@ const AddRound = () => {
       )
       .then((res) => {
         console.log("success", res.data);
-        navigate("/dashboard");
+        navigate(`/user/dashboard/${user.userName}`);
       })
       .catch((err) => {
         console.log(err.response);
@@ -56,10 +71,10 @@ const AddRound = () => {
     <>
       <div className="card mx-auto mt-1" style={{ width: "322px" }}>
         <div className="container mx-auto card-header bg-success text-light text-center">
-          <h2 className="">Add Round</h2>
+          <h2 className="">Edit Round</h2>
         </div>
         <form
-          onSubmit={submitRoundHandler}
+          onSubmit={updateRoundHandler}
           className="d-flex flex-column align-items-center justify-content-center"
         >
           <label className="fw-bold" htmlFor="date">
@@ -73,6 +88,7 @@ const AddRound = () => {
             className="m-2"
             type="date"
             id="date"
+            value={date}
           />
           <label className="fw-bold" htmlFor="course">
             Course:
@@ -85,6 +101,7 @@ const AddRound = () => {
             className="m-2"
             type="text"
             id="course"
+            value={course}
           />
           <label className="fw-bold" htmlFor="course-rating">
             Course Rating:
@@ -99,6 +116,7 @@ const AddRound = () => {
             className="m-2"
             type="number"
             id="course-rating"
+            value={courseRating}
           />
           <label className="fw-bold" htmlFor="slope-rating">
             Slope Rating:
@@ -113,6 +131,7 @@ const AddRound = () => {
             className="m-2"
             type="number"
             id="slope-rating"
+            value={slopeRating}
           />
           <label className="fw-bold" htmlFor="holes-played">
             Holes Played:
@@ -121,6 +140,7 @@ const AddRound = () => {
             onChange={(e) => setHolesPlayed(e.target.value)}
             name="holes-played"
             id="holes-played"
+            value={holesPlayed}
           >
             <option value="18">18</option>
             <option value="9">9</option>
@@ -136,6 +156,7 @@ const AddRound = () => {
             className="m-2"
             type="number"
             id="par"
+            value={par}
           />
           <label className="fw-bold" htmlFor="your-score">
             Your Score:
@@ -148,6 +169,7 @@ const AddRound = () => {
             className="m-2"
             type="number"
             id="your-score"
+            value={score}
           />
           <button className="btn btn-primary my-2">Submit</button>
         </form>
@@ -156,4 +178,4 @@ const AddRound = () => {
   );
 };
 
-export default AddRound;
+export default EditRound;

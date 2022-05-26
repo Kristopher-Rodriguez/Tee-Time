@@ -7,6 +7,7 @@ import TopNav from "./components/TopNav";
 import Dashboard from "./components/Dashboard";
 import BottomBar from "./components/BottomBar";
 import AddRound from "./components/AddRound";
+import EditRound from "./components/EditRound";
 import LogReg from "./views/LogReg";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
 
           />
           <Route path="/addround" element={<AddRound />} />
+          <Route path="/editround/:id" element={<EditRound />} />
         </Routes>
         <BottomBar />
       </BrowserRouter>
