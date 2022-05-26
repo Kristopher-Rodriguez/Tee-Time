@@ -12,7 +12,7 @@ const Dashboard = (props) => {
   //get the states fom App.js
 const {allRounds, setAllRounds} = props;
 const [userRounds, setUserRounds] = useState([]);
-const [userName, setUserName] = useState("")
+const [userId, serUserId] = useState("")
 const [deletedId, setDeletedId] = useState("");
 
 
@@ -21,19 +21,19 @@ const [deletedId, setDeletedId] = useState("");
         axios.get(`http://localhost:8000/api/users/one`, { withCredentials: true })
             .then((response)=>{
                 console.log(response.data);
-                setUserName(response.data.userName);
+                serUserId(response.data._id);
             })
             .catch((error)=>{
                 console.log(error)
             })
     }, [deletedId])
-    // console.log(userName);
+    // console.log("USER NAME", userId);
 
     //Get user rounds
         useEffect(() => {
-            if (userName) {
-                // console.log("THERE IS A USERNAME", userName)
-            axios.get(`http://localhost:8000/api/rounds/${userName}`, { withCredentials: true })
+            if (userId) {
+                // console.log("THERE IS A USERNAME", userId)
+            axios.get(`http://localhost:8000/api/rounds/user/${userId}`, { withCredentials: true })
                 .then((response)=>{
                     console.log(response.data)
                     setUserRounds(response.data)
@@ -42,8 +42,9 @@ const [deletedId, setDeletedId] = useState("");
                     console.log(error);
                 })
             }
-        }, [userName, deletedId])
-        // console.log("USER ROUNDS", userRounds)
+        }, [userId, deletedId])
+    // console.log("ROUNDS", userRounds)
+
 
   //Delete round
   const deleteRound = (idToDelete)=> {
