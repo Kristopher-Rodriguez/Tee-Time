@@ -80,12 +80,14 @@ const [deletedId, setDeletedId] = useState("");
               const now = new Date(round.date)
             return (
                 <tr key={index}>
-                  <td>{date.format(now, 'ddd, MMM DD YYYY')}</td>
-                  <td>{round.course}</td>
-                  <td>{round.score}</td>
-                  <td className="d-flex">
-                        <button className="btn">Edit</button>
-                        <button className="btn"
+                  <td className="align-middle">{date.format(now, 'ddd, MM DD YYYY')}</td>
+                  <td className="align-middle">{round.course}</td>
+                  <td className="align-middle">{round.score}</td>
+                  <td className="d-flex align-middle">
+                        <Link to={`/editround/${round._id}`}>
+                        <button className="btn btn-primary m-1">Edit</button>
+                        </Link>
+                        <button className="btn btn-danger m-1"
                             onClick={event => {deleteRound(round._id)}}
                         >Delete
                         </button>
@@ -102,7 +104,7 @@ const [deletedId, setDeletedId] = useState("");
         <div className="col"></div>
         <div className="col">
           <p className="bg-success text-light rounded p-2 text-center fw-bold mt-4 mb-5">
-            Current Handicap: 5
+            Current Handicap: Coming Soon
           </p>
         </div>
         <div className="col"></div>
