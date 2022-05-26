@@ -2,6 +2,8 @@ import React from 'react';
 import {useEffect, useState}from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import date from 'date-and-time';
+
 
 
 
@@ -75,9 +77,10 @@ const [deletedId, setDeletedId] = useState("");
 
           <tbody>
           {userRounds.map((round, index)=>{
+              const now = new Date(round.date)
             return (
                 <tr key={index}>
-                  <td>{round.date}</td>
+                  <td>{date.format(now, 'ddd, MMM DD YYYY')}</td>
                   <td>{round.course}</td>
                   <td>{round.score}</td>
                   <td className="d-flex">
